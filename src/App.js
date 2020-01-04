@@ -25,15 +25,15 @@ const StyledPartyJammingSpace = styled.div`
 `
 
 const App = () => {
-  const [party, setParty] = useState()
-  const jamImageOnPage = image => { setParty(<div><img src={URL.createObjectURL(image[0])}/></div>); console.log(party) }
+  const [theParty, setTheParty] = useState()
+  const jamImageOnPage = image => { setTheParty(<div>{image}</div>) }
 
   return (
     <StyledAppWrapper>
       <StyledColumnWrapper>
         <Uploadinator jamImageOnPage={jamImageOnPage}/>
         <StyledPartyJammingSpace>
-          {party}
+          {theParty}
         </StyledPartyJammingSpace>
       </StyledColumnWrapper>
     </StyledAppWrapper>
