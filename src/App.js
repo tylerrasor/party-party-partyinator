@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import Partyifier from './components/Partyifier'
 import Uploadinator from './components/Uploadinator'
 
 const StyledAppWrapper = styled.div`
@@ -14,27 +15,16 @@ const StyledColumnWrapper = styled.div`
   justify-content: flex-start;
 `
 
-const StyledPartyJammingSpace = styled.div`
-  height: 200px;
-  background: #ababab;
-  text-justify: auto;
-  text-align: center;
-  padding-top: 20px;
-  border-radius: 10px;
-  margin-top: 80px;
-`
-
 const App = () => {
-  const [theParty, setTheParty] = useState()
-  const jamImageOnPage = image => { setTheParty(<div>{image}</div>) }
+  const [theParty, setTheParty] = useState(null)
+
+  const jamImageOnPage = image => { setTheParty(image) }
 
   return (
     <StyledAppWrapper>
       <StyledColumnWrapper>
         <Uploadinator jamImageOnPage={jamImageOnPage}/>
-        <StyledPartyJammingSpace>
-          {theParty}
-        </StyledPartyJammingSpace>
+        <Partyifier party={theParty}/>
       </StyledColumnWrapper>
     </StyledAppWrapper>
   )
