@@ -66,10 +66,14 @@ const Partyifier = ({ party }) => {
 
   return (
     <>
-      <StyledPartyJammingSpace>
-        {partyToDisplay}
-      </StyledPartyJammingSpace>
-      <StyledDoItButton onClick={() => doTheThing(party, setPartyFile)}>do it</StyledDoItButton>
+      {partyToDisplay &&
+        <>
+          <StyledPartyJammingSpace>
+            {partyToDisplay}
+          </StyledPartyJammingSpace>
+          <StyledDoItButton onClick={() => doTheThing(party, setPartyFile)}>do it</StyledDoItButton>
+        </>
+      }
       {partyFile &&
         <StyledPartyJammingSpace>
           {theRealParty}

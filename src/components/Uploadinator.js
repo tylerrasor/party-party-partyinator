@@ -5,6 +5,7 @@ import { Upload } from 'styled-icons/feather/Upload'
 
 const Container = styled.div`
   height: 100px;
+  width: 50%;
   background: #ababab;
   text-justify: auto;
   text-align: center;
