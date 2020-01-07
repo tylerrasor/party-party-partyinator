@@ -19,9 +19,9 @@ const StyledDoItButton = styled.button`
   width: 100px;
 `
 
-let partified = new Uint8Array(0)
+let partifiedBytes = new Uint8Array(0)
 const doTheHackyWritingBytesManuallyThing = someBytes => {
-  partified = appendBuffers(partified, someBytes)
+  partifiedBytes = appendBuffers(partifiedBytes, someBytes)
 }
 
 const appendBuffers = (buf1, buf2) => {
@@ -31,20 +31,37 @@ const appendBuffers = (buf1, buf2) => {
   return tmp.buffer
 }
 
-const doTheThing = async image => {
+const doTheThing = async (image, setPartyFile) => {
   if (image !== null) {
     let thePartyStream = new Stream.Writable()
     thePartyStream.write = doTheHackyWritingBytesManuallyThing
     await createPartyImage(image, thePartyStream)
 
-    setTimeout(() => console.log(partified), 500)
+    waitAbitAndSetFile(setPartyFile)
   }
 }
 
+const waitAbitAndSetFile = setPartyFile => {
+  // don't know why we have to wait for the gifencoder to write to the stream???
+  setTimeout(() => setPartyFile(new File([partifiedBytes], 'this_is_a_name.gif', {type: 'image/gif'})), 500)
+}
+
+const wrapFileToImgTag = file => {
+  console.log(URL.createObjectURL(file))
+  return <img src={URL.createObjectURL(file)} width='100' height='100' alt='just do the thing already'/>
+}
+
 const Partyifier = ({ party }) => {
+  const [partyFile, setPartyFile] = useState(null)
+
   let partyToDisplay = party
   if (party instanceof File) {
-    partyToDisplay = <img src={URL.createObjectURL(party)} width='100' height='100' alt='just do the thing already'/>
+    partyToDisplay = wrapFileToImgTag(party)
+  }
+
+  let theRealParty = null
+  if (partyFile instanceof File) {
+    theRealParty = wrapFileToImgTag(partyFile)
   }
 
   return (
@@ -52,7 +69,12 @@ const Partyifier = ({ party }) => {
       <StyledPartyJammingSpace>
         {partyToDisplay}
       </StyledPartyJammingSpace>
-      <StyledDoItButton onClick={doTheThing(party)}>do it</StyledDoItButton>
+      <StyledDoItButton onClick={() => doTheThing(party, setPartyFile)}>do it</StyledDoItButton>
+      {partyFile &&
+        <StyledPartyJammingSpace>
+          {theRealParty}
+        </StyledPartyJammingSpace>
+      }
     </>
   )
 }
