@@ -1,4 +1,4 @@
-function toGreyscale(pixels) {
+export function toGreyscale(pixels) {
   const greyscale = [];
 
   for (var i = 0; i < pixels.data.length / 4; i += 1) {
@@ -16,5 +16,3 @@ function toGreyscale(pixels) {
   }
   return greyscale;
 }
-
-module.exports = toGreyscale;

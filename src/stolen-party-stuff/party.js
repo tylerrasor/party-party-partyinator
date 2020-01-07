@@ -1,6 +1,6 @@
-const getPixels = require("get-pixels");
-const gifEncoder = require("gif-encoder");
-const toGreyscale = require("./lib/grayscale");
+import getPixels from 'get-pixels'
+import gifEncoder from 'gif-encoder'
+import { toGreyscale } from './greyscale'
 
 // The party palette. Party on, Sirocco!
 const colours = [
@@ -45,7 +45,7 @@ function rotate(x, y, frac, shape) {
  * @param {number} partyRadius The radius used to animate movement in the output image
  * @param {number} rotationSpeed The speed of rotation in the output image (if desired)
  */
-function createPartyImage(inputFilename, outputStream, partyRadius, rotationSpeed) {
+export function createPartyImage(inputFilename, outputStream, partyRadius, rotationSpeed) {
   //TODO(somewhatabstract): Add other variations to radius, like tilt (for bobbling side to side)
   const partyOffset = [];
   colours.forEach((c, colourIndex) => {
@@ -129,5 +129,3 @@ function createPartyImage(inputFilename, outputStream, partyRadius, rotationSpee
 
   getPixels(inputFilename, processImage);
 }
-
-module.exports = createPartyImage;
