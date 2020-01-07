@@ -12,7 +12,7 @@ const StyledColumnWrapper = styled.div`
   width: 50%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  align-items: center;
 `
 
 const App = () => {

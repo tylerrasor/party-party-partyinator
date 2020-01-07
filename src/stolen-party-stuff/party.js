@@ -40,12 +40,12 @@ function rotate(x, y, frac, shape) {
 
 /**
  * Writes a party version of the given input image to the specified output stream.
- * @param {string} inputFilename A GIF image file to be partified
+ * @param {string} inputFile the thing to be partyified
  * @param {stream.Writable} outputStream The stream where the partified image is to be written
  * @param {number} partyRadius The radius used to animate movement in the output image
  * @param {number} rotationSpeed The speed of rotation in the output image (if desired)
  */
-export function createPartyImage(inputFilename, outputStream, partyRadius, rotationSpeed) {
+export async function createPartyImage(inputFile, outputStream, speed = 100, partyRadius = 0, rotationSpeed = 0) {
   //TODO(somewhatabstract): Add other variations to radius, like tilt (for bobbling side to side)
   const partyOffset = [];
   colours.forEach((c, colourIndex) => {
@@ -69,7 +69,7 @@ export function createPartyImage(inputFilename, outputStream, partyRadius, rotat
     const gif = new gifEncoder(shape[0], shape[1]);
     gif.pipe(outputStream);
 
-    gif.setDelay(100);
+    gif.setDelay(speed);
     gif.setRepeat(0);
     gif.setTransparent("0x00FF00");
     gif.writeHeader();
@@ -127,5 +127,8 @@ export function createPartyImage(inputFilename, outputStream, partyRadius, rotat
     gif.finish();
   }
 
-  getPixels(inputFilename, processImage);
+  const arrayBuffer = await inputFile.arrayBuffer()
+  let buffer = Buffer.from(arrayBuffer)
+
+  getPixels(buffer, inputFile.type, processImage)
 }
