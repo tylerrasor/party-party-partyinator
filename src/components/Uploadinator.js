@@ -2,10 +2,12 @@ import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import styled from 'styled-components'
 import { Upload } from 'styled-icons/feather/Upload'
+import { BrowserView } from 'react-device-detect'
 
 const Container = styled.div`
   height: 100px;
   width: 50%;
+  min-width: 400px;
   background: #ababab;
   text-justify: auto;
   text-align: center;
@@ -18,7 +20,11 @@ const StyledUploadIcon = styled(Upload).attrs(props => ({
   ...props,
   size: 24
 }))`
+  margin-top: 15px;
+`
 
+const StyledBrowserView = styled(BrowserView)`
+  display: inline;
 `
 
 let Uploadinator = ({ jamImageOnPage }) => {
@@ -37,8 +43,8 @@ let Uploadinator = ({ jamImageOnPage }) => {
       <input {...getInputProps()} />
       {
         isDragActive ?
-          <p>Get the party started...</p> :
-          <p>Drag and drop or click here to get the party started...</p>
+          <div>Get the party started...</div> :
+          <div><StyledBrowserView>Drag and drop or </StyledBrowserView>click here to get the party started...</div>
       }
       <StyledUploadIcon/>
     </Container>
