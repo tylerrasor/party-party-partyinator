@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { fileToImgTag, theMagic } from '../util/HackyFileShit'
 import { colours } from '../stolen-party-stuff/party'
@@ -78,6 +78,7 @@ const Partyifier = ({ maybePartyFile }) => {
   if (maybePartyFile instanceof File) {
     if (maybePartyFile !== fileToParty) {
       setFileToParty(maybePartyFile)
+      setPartyFile(null)
     }
     // for some reason on first render we loop through this code once before the setState call works?? help me @tim.huddle
     if (fileToParty !== null) {

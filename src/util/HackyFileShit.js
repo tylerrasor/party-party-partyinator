@@ -23,6 +23,7 @@ const doTheHackyWritingBytesManuallyThing = someBytes => {
 }
 
 export const theMagic = async input => {
+  partifiedBytes = new Uint8Array(0)
   let hackyStream = new Stream.Writable()
   hackyStream.write = doTheHackyWritingBytesManuallyThing
   await createPartyImage(input, hackyStream)
