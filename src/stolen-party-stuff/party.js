@@ -3,7 +3,7 @@ import gifEncoder from 'gif-encoder'
 import { toGreyscale } from './greyscale'
 
 // The party palette. Party on, Sirocco!
-const colours = [
+export const colours = [
   [255, 141, 139],
   [254, 214, 137],
   [136, 255, 137],
