@@ -46,12 +46,25 @@ const StyledDoItButton = styled.button`
   width: 100px;
 `
 
+const StyledDownloadButton = styled.button`
+  width: 100px;
+`
+
 const doTheThing = async (image, setPartyFile, setGettingReadyToParty, speed = 100) => {
   if (image !== null) {
     setGettingReadyToParty(true)
     const partyMagic = await theMagic(image)
-    return new Promise(resolve => setTimeout(() => { setPartyFile(partyMagic); resolve() }, 5000))
+    return new Promise(resolve => setTimeout(() => { setPartyFile(partyMagic); resolve() }, 3000))
   }
+}
+
+const download = file => {
+  let a = document.createElement('a')
+  a.href = URL.createObjectURL(file)
+  a.download = file.name
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
 }
 
 const Partyifier = ({ maybePartyFile }) => {
@@ -61,6 +74,7 @@ const Partyifier = ({ maybePartyFile }) => {
 
   let partyToDisplay = maybePartyFile
   let doItButton = null
+  let downloadButton = null
   if (maybePartyFile instanceof File) {
     if (maybePartyFile !== fileToParty) {
       setFileToParty(maybePartyFile)
@@ -75,6 +89,7 @@ const Partyifier = ({ maybePartyFile }) => {
   if (partyFile instanceof File) {
     partyToDisplay = fileToImgTag(partyFile)
     doItButton = <StyledDoItButton onClick={() => {setPartyFile(null); setGettingReadyToParty(false)}}>reset</StyledDoItButton>
+    downloadButton = <StyledDownloadButton onClick={() => download(partyFile)}>download</StyledDownloadButton>
   }
 
   return (
@@ -86,6 +101,7 @@ const Partyifier = ({ maybePartyFile }) => {
           </StyledPartyJammingSpace>
           <StyledPartyOverlay isPartying={gettingReadyToParty} />
           {doItButton}
+          {downloadButton}
         </>
       }
     </>
