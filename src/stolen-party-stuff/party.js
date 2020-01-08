@@ -130,5 +130,10 @@ export async function createPartyImage(inputFile, outputStream, speed = 100, par
   const arrayBuffer = await inputFile.arrayBuffer()
   let buffer = Buffer.from(arrayBuffer)
 
-  getPixels(buffer, inputFile.type, processImage)
+  return new Promise(resolve => {
+    getPixels(buffer, inputFile.type, (err, pixels) => {
+      processImage(err, pixels)
+      resolve()
+    })
+  })
 }
