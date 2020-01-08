@@ -24,17 +24,26 @@ const doTheThing = async (image, setPartyFile) => {
   }
 }
 
-const Partyifier = ({ party }) => {
+const Partyifier = ({ maybePartyFile }) => {
+  const [fileToParty, setFileToParty] = useState(null)
   const [partyFile, setPartyFile] = useState(null)
 
-  let partyToDisplay = party
-  if (party instanceof File) {
-    partyToDisplay = fileToImgTag(party)
+  let partyToDisplay = maybePartyFile
+  let doItButton = null
+  if (maybePartyFile instanceof File) {
+    if (maybePartyFile !== fileToParty) {
+      setFileToParty(maybePartyFile)
+    }
+    // for some reason on first render we loop through this code once before the setState call works?? help me @tim.huddle
+    if (fileToParty !== null) {
+      partyToDisplay = fileToImgTag(fileToParty)
+      doItButton = <StyledDoItButton onClick={() => doTheThing(fileToParty, setPartyFile)}>{'do it'}</StyledDoItButton>
+    }
   }
 
-  let theRealParty = null
   if (partyFile instanceof File) {
-    theRealParty = fileToImgTag(partyFile)
+    partyToDisplay = fileToImgTag(partyFile)
+    doItButton = <StyledDoItButton onClick={() => setPartyFile(null)}>reset</StyledDoItButton>
   }
 
   return (
@@ -44,13 +53,8 @@ const Partyifier = ({ party }) => {
           <StyledPartyJammingSpace>
             {partyToDisplay}
           </StyledPartyJammingSpace>
-          <StyledDoItButton onClick={() => doTheThing(party, setPartyFile)}>do it</StyledDoItButton>
+          {doItButton}
         </>
-      }
-      {partyFile &&
-        <StyledPartyJammingSpace>
-          {theRealParty}
-        </StyledPartyJammingSpace>
       }
     </>
   )

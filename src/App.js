@@ -24,7 +24,7 @@ const App = () => {
     <StyledAppWrapper>
       <StyledColumnWrapper>
         <Uploadinator jamImageOnPage={jamImageOnPage}/>
-        <Partyifier party={theParty}/>
+        <Partyifier maybePartyFile={theParty}/>
       </StyledColumnWrapper>
     </StyledAppWrapper>
   )
