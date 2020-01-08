@@ -23,24 +23,14 @@ const StyledUploadIcon = styled(Upload).attrs(props => ({
 
 let Uploadinator = ({ jamImageOnPage }) => {
   const onDrop = useCallback(files => {
-    let imageToParty = <p>you don't want to party anything? lame.</p>
+    let imageToParty = <p>whoa, I can't party that</p>
+    // using react-dropzone's validation for file type and size means if we get a single file it *should* be partiable
     if (files.length === 1) {
-      if (files[0].type.match(/image/)) {
-        imageToParty = files[0]
-      } else {
-        imageToParty = <p>bruh... I don't know how to handle that type of file</p>
-      }
-    } else {
-      imageToParty = (
-        <>
-          <p>whoa, too much at party at one time dude</p>
-          <p>one at a time please</p>
-        </>
-      )
+      imageToParty = files[0]
     }
     jamImageOnPage(imageToParty)
   }, [jamImageOnPage])
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop, accept: 'image/jpeg, image/png', maxSize: 102400})
 
   return (
     <Container {...getRootProps()}>
