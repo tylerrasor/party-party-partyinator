@@ -27,5 +27,7 @@ export const theMagic = async input => {
   hackyStream.write = doTheHackyWritingBytesManuallyThing
   await createPartyImage(input, hackyStream)
 
-  return jamBitsIntoGifFile(partifiedBytes, 'something_for_now')
+  const file_name = input.path.replace(/\..*/, '.gif').replace(/^/, 'party-')
+
+  return jamBitsIntoGifFile(partifiedBytes, file_name)
 }
