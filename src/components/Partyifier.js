@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { fileToImgTag, theMagic } from '../util/HackyFileShit'
 import { colours } from '../stolen-party-stuff/party'

@@ -27,6 +27,7 @@ export const theMagic = async input => {
   let hackyStream = new Stream.Writable()
   hackyStream.write = doTheHackyWritingBytesManuallyThing
   await createPartyImage(input, hackyStream)
+  console.log(`partifiedBytes: ${partifiedBytes}`)
 
   const file_name = input.path.replace(/\.(png|jpeg)/, '').replace(/^/, 'party-')
 

@@ -127,13 +127,17 @@ export async function createPartyImage(inputFile, outputStream, speed = 100, par
     gif.finish();
   }
 
-  const arrayBuffer = await inputFile.arrayBuffer()
-  let buffer = Buffer.from(arrayBuffer)
-
   return new Promise(resolve => {
-    getPixels(buffer, inputFile.type, (err, pixels) => {
-      processImage(err, pixels)
-      resolve()
-    })
+    const reader = new FileReader()
+    reader.onloadend = () => {
+      let buffer = Buffer.from(reader.result)
+
+      getPixels(buffer, inputFile.type, (err, pixels) => {
+        processImage(err, pixels)
+        console.log('done')
+        resolve()
+      })
+    }
+    reader.readAsArrayBuffer(inputFile)
   })
 }
