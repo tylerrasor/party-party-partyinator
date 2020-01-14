@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import Partyifier from './components/Partyifier'
 import Uploadinator from './components/Uploadinator'
+import { isMobile } from 'react-device-detect'
 
 const StyledAppWrapper = styled.div`
   display: flex;
@@ -9,7 +10,7 @@ const StyledAppWrapper = styled.div`
 `
 
 const StyledColumnWrapper = styled.div`
-  width: 50%;
+  width: ${isMobile ? '100%' : '50%'};
   display: flex;
   flex-direction: column;
   align-items: center;

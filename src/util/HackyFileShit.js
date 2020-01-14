@@ -2,8 +2,8 @@ import React from 'react'
 import Stream from 'stream-browserify'
 import {createPartyImage} from '../stolen-party-stuff/party'
 
-export const fileToImgTag = file => {
-  return <img src={URL.createObjectURL(file)} width='100' height='100' alt='just do the thing already'/>
+export const fileToImgTag = (file, size) => {
+  return <img src={URL.createObjectURL(file)} width={size} height={size} alt='just do the thing already'/>
 }
 
 const jamBitsIntoGifFile = (bits, file_name) => {

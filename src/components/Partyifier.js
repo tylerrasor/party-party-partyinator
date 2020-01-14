@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { fileToImgTag, theMagic } from '../util/HackyFileShit'
 import { colours } from '../stolen-party-stuff/party'
+import { isMobile } from 'react-device-detect'
 
 const StyledPartyJammingSpace = styled.div`
-  height: 100px;
-  width: 100px;
+  height: ${isMobile ? '50%' : '100px'};
+  width: ${isMobile ? '100%' : '100px'};
   background: #ababab;
   text-justify: auto;
   text-align: center;
@@ -33,8 +34,8 @@ const StyledPartyOverlay = styled.div`
   opacity: ${props => props.isPartying ? '1' : '0'};
   animation: party 0.8s infinite;
   transition: opacity 2s ease-out;
-  height: 100px;
-  width: 100px;
+  height: ${isMobile ? '50%' : '100px'};
+  width: ${isMobile ? '100%' : '100px'};
   padding: 20px;
   border-radius: 10px;
   margin-top: -140px;
@@ -82,13 +83,13 @@ const Partyifier = ({ maybePartyFile }) => {
     }
     // for some reason on first render we loop through this code once before the setState call works?? help me @tim.huddle
     if (fileToParty !== null) {
-      partyToDisplay = fileToImgTag(fileToParty)
+      partyToDisplay = fileToImgTag(fileToParty, isMobile ? 200 : 100)
       doItButton = <StyledDoItButton onClick={() => doTheThing(fileToParty, setPartyFile, setGettingReadyToParty).then(_ => setGettingReadyToParty(false))} disabled={gettingReadyToParty}>{gettingReadyToParty ? 'just chillll' : 'do it'}</StyledDoItButton>
     }
   }
 
   if (partyFile instanceof File) {
-    partyToDisplay = fileToImgTag(partyFile)
+    partyToDisplay = fileToImgTag(partyFile, isMobile ? 200 : 100)
     doItButton = <StyledDoItButton onClick={() => {setPartyFile(null); setGettingReadyToParty(false)}}>reset</StyledDoItButton>
     downloadButton = <StyledDownloadButton onClick={() => download(partyFile)}>download</StyledDownloadButton>
   }
