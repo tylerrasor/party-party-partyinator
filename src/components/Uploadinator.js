@@ -2,23 +2,23 @@ import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import styled from 'styled-components'
 import { Upload } from 'styled-icons/feather/Upload'
-import { BrowserView } from 'react-device-detect'
+import { BrowserView, isMobile } from 'react-device-detect'
 
 const Container = styled.div`
-  height: 100px;
-  width: 50%;
-  min-width: 400px;
+  height: ${isMobile ? '20vh' : '100px'};
+  width: ${isMobile ? '95vw' : '400px'};
   background: #ababab;
   text-justify: auto;
   text-align: center;
-  padding-top: 20px;
+  padding-top: ${isMobile ? '5vh' : '20px'};
   border-radius: 10px;
-  margin-top: 80px;
+  margin-top: ${isMobile ? '5vh' : '80px'};
+  font-size: ${isMobile ? '24px' : ''};
 `
 
 const StyledUploadIcon = styled(Upload).attrs(props => ({
   ...props,
-  size: 24
+  size: isMobile ? 70 : 24
 }))`
   margin-top: 15px;
 `
