@@ -12,13 +12,13 @@ const Container = styled.div`
   text-align: center;
   padding-top: ${isMobile ? '5vh' : '20px'};
   border-radius: 10px;
-  margin-top: ${isMobile ? '5vh' : '80px'};
+  margin-top: ${isMobile ? '2vh' : '80px'};
   font-size: ${isMobile ? '24px' : ''};
 `
 
 const StyledUploadIcon = styled(Upload).attrs(props => ({
   ...props,
-  size: isMobile ? 70 : 24
+  size: isMobile ? 72 : 24
 }))`
   margin-top: 15px;
 `
