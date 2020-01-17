@@ -15,7 +15,7 @@
     "styled-icons": "^9.1.0"
   },
   "scripts": {
-    "start": "if [[ \"$(uname)\" = \"Darwin\" ]]; then BROWSER=none react-scripts start; else serve -s build; fi",
+    "start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
