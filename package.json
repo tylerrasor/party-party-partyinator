@@ -2,6 +2,7 @@
   "name": "party-party-partyinator",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/party-party-partyinator",
   "dependencies": {
     "get-pixels": "^3.3.2",
     "gif-encoder": "^0.7.2",
