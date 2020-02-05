@@ -36,7 +36,7 @@ let Uploadinator = ({ jamImageOnPage }) => {
     }
     jamImageOnPage(imageToParty)
   }, [jamImageOnPage])
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop, accept: 'image/jpeg, image/png', maxSize: 102400})
+  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop, accept: 'image/jpeg, image/png', maxSize: 1024000, multiple: false})
 
   return (
     <Container {...getRootProps()}>
