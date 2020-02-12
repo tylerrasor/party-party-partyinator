@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
 import Partyifier from './components/Partyifier'
 import Uploadinator from './components/Uploadinator'
+import Downloadinator from './components/Downloadinator'
 import { isMobile } from 'react-device-detect'
 
 const StyledAppWrapper = styled.div`
@@ -19,11 +20,12 @@ const StyledColumnWrapper = styled.div`
 const App = () => {
   const [theParty, setTheParty] = useState(null)
 
-  const jamImageOnPage = image => { setTheParty(image) }
+  const jamImageOnPage = useCallback(image => { setTheParty(image) }, [setTheParty])
 
   return (
     <StyledAppWrapper>
       <StyledColumnWrapper>
+        <Downloadinator jamImageOnPage={jamImageOnPage} />
         <Uploadinator jamImageOnPage={jamImageOnPage}/>
         <Partyifier maybePartyFile={theParty}/>
       </StyledColumnWrapper>
