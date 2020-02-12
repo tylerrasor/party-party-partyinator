@@ -4,6 +4,8 @@
   "private": true,
   "homepage": "/party-party-partyinator",
   "dependencies": {
+    "@material-ui/core": "^4.9.2",
+    "axios": "^0.19.2",
     "get-pixels": "^3.3.2",
     "gif-encoder": "^0.7.2",
     "react": "^16.12.0",
