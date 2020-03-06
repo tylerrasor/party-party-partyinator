@@ -33,6 +33,8 @@ let Uploadinator = ({ jamImageOnPage }) => {
     // using react-dropzone's validation for file type and size means if we get a single file it *should* be partiable
     if (files.length === 1) {
       imageToParty = files[0]
+      // eslint-disable-next-line no-undef
+      gtag('event', 'file_stuff', { 'event_category': 'file_upload', 'event_label': files[0].path })
     }
     jamImageOnPage(imageToParty)
   }, [jamImageOnPage])

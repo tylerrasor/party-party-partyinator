@@ -66,6 +66,8 @@ const download = file => {
   document.body.appendChild(a)
   a.click()
   document.body.removeChild(a)
+  // eslint-disable-next-line no-undef
+  gtag('event', 'file_stuff', { 'event_category': 'file_download', 'event_label': file.name })
 }
 
 const Partyifier = ({ maybePartyFile }) => {
