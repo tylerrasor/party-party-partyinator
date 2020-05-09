@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { fileToImgTag, theMagic } from '../util/HackyFileShit'
-import { colours } from '../stolen-party-stuff/party'
+import { partyColours } from '../stolen-party-stuff/party'
 import { isMobile } from 'react-device-detect'
 
 const StyledPartyJammingSpace = styled.div`
@@ -18,16 +18,16 @@ const StyledPartyJammingSpace = styled.div`
 const alpha = 0.7
 const StyledPartyOverlay = styled.div`
   @keyframes party {
-      0%{ background-color: rgba(${colours[0].join()}, ${alpha}); }
-     11%{ background-color: rgba(${colours[1].join()}, ${alpha}); }
-     22%{ background-color: rgba(${colours[2].join()}, ${alpha}); }
-     33%{ background-color: rgba(${colours[3].join()}, ${alpha}); }
-     44%{ background-color: rgba(${colours[4].join()}, ${alpha}); }
-     55%{ background-color: rgba(${colours[5].join()}, ${alpha}); }
-     66%{ background-color: rgba(${colours[6].join()}, ${alpha}); }
-     77%{ background-color: rgba(${colours[7].join()}, ${alpha}); }
-     88%{ background-color: rgba(${colours[8].join()}, ${alpha}); }
-    100%{ background-color: rgba(${colours[9].join()}, ${alpha}); }
+      0%{ background-color: rgba(${partyColours[0].join()}, ${alpha}); }
+     11%{ background-color: rgba(${partyColours[1].join()}, ${alpha}); }
+     22%{ background-color: rgba(${partyColours[2].join()}, ${alpha}); }
+     33%{ background-color: rgba(${partyColours[3].join()}, ${alpha}); }
+     44%{ background-color: rgba(${partyColours[4].join()}, ${alpha}); }
+     55%{ background-color: rgba(${partyColours[5].join()}, ${alpha}); }
+     66%{ background-color: rgba(${partyColours[6].join()}, ${alpha}); }
+     77%{ background-color: rgba(${partyColours[7].join()}, ${alpha}); }
+     88%{ background-color: rgba(${partyColours[8].join()}, ${alpha}); }
+    100%{ background-color: rgba(${partyColours[9].join()}, ${alpha}); }
   }
   
   filter: brightness(85%);
@@ -51,10 +51,10 @@ const StyledDownloadButton = styled.button`
   width: 100px;
 `
 
-const doTheThing = async (image, setPartyFile, setGettingReadyToParty, speed = 100) => {
+const doTheThing = async (image, setPartyFile, setGettingReadyToParty, shouldIParty) => {
   if (image !== null) {
     setGettingReadyToParty(true)
-    const partyMagic = await theMagic(image)
+    const partyMagic = await theMagic(image, shouldIParty)
     return new Promise(resolve => setTimeout(() => { setPartyFile(partyMagic); resolve() }, 3000))
   }
 }
@@ -70,7 +70,7 @@ const download = file => {
   gtag('event', 'file_stuff', { 'event_category': 'file_download', 'event_label': file.name })
 }
 
-const Partyifier = ({ maybePartyFile }) => {
+const Partyifier = ({ maybePartyFile, shouldIParty }) => {
   const [fileToParty, setFileToParty] = useState(null)
   const [partyFile, setPartyFile] = useState(null)
   const [gettingReadyToParty, setGettingReadyToParty] = useState(false)
@@ -86,7 +86,7 @@ const Partyifier = ({ maybePartyFile }) => {
     // for some reason on first render we loop through this code once before the setState call works?? help me @tim.huddle
     if (fileToParty !== null) {
       partyToDisplay = fileToImgTag(fileToParty, isMobile ? 300 : 100)
-      doItButton = <StyledDoItButton onClick={() => doTheThing(fileToParty, setPartyFile, setGettingReadyToParty).then(_ => setGettingReadyToParty(false))} disabled={gettingReadyToParty}>{gettingReadyToParty ? 'just chillll' : 'do it'}</StyledDoItButton>
+      doItButton = <StyledDoItButton onClick={() => doTheThing(fileToParty, setPartyFile, setGettingReadyToParty, shouldIParty).then(_ => setGettingReadyToParty(false))} disabled={gettingReadyToParty}>{gettingReadyToParty ? 'just chillll' : 'do it'}</StyledDoItButton>
     }
   }
 
