@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { fileToImgTag, theMagic } from '../util/HackyFileShit'
-import { partyColours } from '../stolen-party-stuff/party'
+import {noPartyColours, partyColours} from '../stolen-party-stuff/party'
 import { isMobile } from 'react-device-detect'
 
 const StyledPartyJammingSpace = styled.div`
@@ -18,16 +18,16 @@ const StyledPartyJammingSpace = styled.div`
 const alpha = 0.7
 const StyledPartyOverlay = styled.div`
   @keyframes party {
-      0%{ background-color: rgba(${partyColours[0].join()}, ${alpha}); }
-     11%{ background-color: rgba(${partyColours[1].join()}, ${alpha}); }
-     22%{ background-color: rgba(${partyColours[2].join()}, ${alpha}); }
-     33%{ background-color: rgba(${partyColours[3].join()}, ${alpha}); }
-     44%{ background-color: rgba(${partyColours[4].join()}, ${alpha}); }
-     55%{ background-color: rgba(${partyColours[5].join()}, ${alpha}); }
-     66%{ background-color: rgba(${partyColours[6].join()}, ${alpha}); }
-     77%{ background-color: rgba(${partyColours[7].join()}, ${alpha}); }
-     88%{ background-color: rgba(${partyColours[8].join()}, ${alpha}); }
-    100%{ background-color: rgba(${partyColours[9].join()}, ${alpha}); }
+      0%{ background-color: rgba(${props => props.colours[0].join()}, ${alpha}); }
+     11%{ background-color: rgba(${props => props.colours[1].join()}, ${alpha}); }
+     22%{ background-color: rgba(${props => props.colours[2].join()}, ${alpha}); }
+     33%{ background-color: rgba(${props => props.colours[3].join()}, ${alpha}); }
+     44%{ background-color: rgba(${props => props.colours[4].join()}, ${alpha}); }
+     55%{ background-color: rgba(${props => props.colours[5].join()}, ${alpha}); }
+     66%{ background-color: rgba(${props => props.colours[6].join()}, ${alpha}); }
+     77%{ background-color: rgba(${props => props.colours[7].join()}, ${alpha}); }
+     88%{ background-color: rgba(${props => props.colours[8].join()}, ${alpha}); }
+    100%{ background-color: rgba(${props => props.colours[9].join()}, ${alpha}); }
   }
   
   filter: brightness(85%);
@@ -86,7 +86,7 @@ const Partyifier = ({ maybePartyFile, shouldIParty }) => {
     // for some reason on first render we loop through this code once before the setState call works?? help me @tim.huddle
     if (fileToParty !== null) {
       partyToDisplay = fileToImgTag(fileToParty, isMobile ? 300 : 100)
-      doItButton = <StyledDoItButton onClick={() => doTheThing(fileToParty, setPartyFile, setGettingReadyToParty, shouldIParty).then(_ => setGettingReadyToParty(false))} disabled={gettingReadyToParty}>{gettingReadyToParty ? 'just chillll' : 'do it'}</StyledDoItButton>
+      doItButton = <StyledDoItButton onClick={() => doTheThing(fileToParty, setPartyFile, setGettingReadyToParty, shouldIParty).then(_ => setGettingReadyToParty(false))} disabled={gettingReadyToParty}>{gettingReadyToParty ? shouldIParty ? 'just chillll' : 'just wait your turn, see?' : 'do it'}</StyledDoItButton>
     }
   }
 
@@ -103,7 +103,7 @@ const Partyifier = ({ maybePartyFile, shouldIParty }) => {
           <StyledPartyJammingSpace isPartying={gettingReadyToParty}>
             {partyToDisplay}
           </StyledPartyJammingSpace>
-          <StyledPartyOverlay isPartying={gettingReadyToParty} />
+          <StyledPartyOverlay isPartying={gettingReadyToParty} colours={shouldIParty ? partyColours : noPartyColours} />
           {doItButton}
           {downloadButton}
         </>
