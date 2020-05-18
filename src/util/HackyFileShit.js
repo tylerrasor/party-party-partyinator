@@ -22,14 +22,14 @@ const doTheHackyWritingBytesManuallyThing = someBytes => {
   partifiedBytes = appendBuffers(partifiedBytes, someBytes)
 }
 
-export const theMagic = async (input, shouldIParty) => {
+export const theMagic = async (input, colors) => {
   partifiedBytes = new Uint8Array(0)
   let hackyStream = new Stream.Writable()
   hackyStream.write = doTheHackyWritingBytesManuallyThing
-  await createPartyImage(input, hackyStream, shouldIParty)
+  await createPartyImage(input, hackyStream, colors)
   console.log(`partifiedBytes: ${partifiedBytes}`)
 
-  const file_name = input.path.replace(/\.(png|jpeg|gif)/, '').replace(/^/, `${shouldIParty ? '' : '20s-'}party-`)
+  const file_name = input.path.replace(/\.(png|jpeg|gif)/, '').replace(/^/, `party-`)
 
   return jamBitsIntoGifFile(partifiedBytes, file_name)
 }

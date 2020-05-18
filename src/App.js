@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import Partyifier from './components/Partyifier'
 import Uploadinator from './components/Uploadinator'
 import { isMobile } from 'react-device-detect'
-import { Clock } from 'styled-icons/icomoon/Clock'
+import ColourPalette from './components/ColourPalette'
+import { RGBArrayPlease, ColorObjPlease, PartyPartyParty, NoParty } from "./util/ColorPalettes";
 
 const StyledAppWrapper = styled.div`
   display: flex;
@@ -17,18 +18,23 @@ const StyledColumnWrapper = styled.div`
   align-items: center;
 `
 
+const paletteSize = 10
+const defaultPaletteColor = {rgb:{r:0, g:0, b:0, a:1}, hex: '#000'}
+
 const App = () => {
   const [theParty, setTheParty] = useState(null)
-  const [shouldIParty, setShouldIParty] = useState( true)
+  const [colors, setColors] = useState(Array(paletteSize).fill(defaultPaletteColor,0))
 
   const jamImageOnPage = image => { setTheParty(image) }
 
   return (
     <StyledAppWrapper>
       <StyledColumnWrapper>
-        <span onClick={() => setShouldIParty(!shouldIParty) }><Clock width='10' height='10'/></span>
         <Uploadinator jamImageOnPage={jamImageOnPage}/>
-        <Partyifier maybePartyFile={theParty} shouldIParty={shouldIParty}/>
+        <Partyifier maybePartyFile={theParty} colors={RGBArrayPlease(colors)}/>
+        <ColourPalette rows={2} columns={5} colours={colors} onChange={setColors}/>
+        <button onClick={() => setColors([...ColorObjPlease(PartyPartyParty)])}>Party Palette</button>
+        <button onClick={() => setColors([...ColorObjPlease(NoParty)])}>Speak Easy Palette</button>
       </StyledColumnWrapper>
     </StyledAppWrapper>
   )

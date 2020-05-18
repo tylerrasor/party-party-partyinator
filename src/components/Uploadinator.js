@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import styled from 'styled-components'
-import { Upload } from 'styled-icons/feather/Upload'
+import { Upload } from '@styled-icons/feather/Upload'
 import { BrowserView, isMobile } from 'react-device-detect'
 
 const Container = styled.div`
