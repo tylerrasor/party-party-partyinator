@@ -18,12 +18,9 @@ const StyledColumnWrapper = styled.div`
   align-items: center;
 `
 
-const paletteSize = 10
-const defaultPaletteColor = {rgb:{r:0, g:0, b:0, a:1}, hex: '#000'}
-
 const App = () => {
   const [theParty, setTheParty] = useState(null)
-  const [colors, setColors] = useState(Array(paletteSize).fill(defaultPaletteColor,0))
+  const [colors, setColors] = useState([...ColorObjPlease(PartyPartyParty)])
 
   const jamImageOnPage = image => { setTheParty(image) }
 
