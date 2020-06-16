@@ -51,7 +51,7 @@ const Track = (props, state) => <StyledTrack {...props} index={state.index} />;
 
 const Controlinator = ({ config, setConfig }) => {
   return (
-    <Collapsible trigger={<SlidersH size={24} color={'#6a6a6a'} />} open={true}>
+    <Collapsible trigger={<SlidersH size={24} color={'#6a6a6a'} />}>
       <StyledRowWrapper>
         Speed:
         <StyledSlider min={1} defaultValue={[50]} renderTrack={Track} renderThumb={Thumb} onAfterChange={val => setConfig({ ...config, speed: 100 * 50/val })} />

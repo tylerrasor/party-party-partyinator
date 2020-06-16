@@ -33,7 +33,7 @@ const App = () => {
       <StyledColumnWrapper>
         <Uploadinator jamImageOnPage={jamImageOnPage} />
         <Partyifier maybePartyFile={theParty} config={config} />
-        {true && <Controlinator config={config} setConfig={setConfig} />}
+        {theParty && <Controlinator config={config} setConfig={setConfig} />}
       </StyledColumnWrapper>
     </StyledAppWrapper>
   )
