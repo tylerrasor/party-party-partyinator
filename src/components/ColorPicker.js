@@ -18,7 +18,11 @@ const Color = styled.div`
   border-color: ${props => props.selected ? 'red' : 'black'}
   cursor: pointer;
   border-radius: 2px;
-  `
+`
+
+const StyledSketchPicker = styled(SketchPicker)`
+  display: block;
+`
 
 const BrushColor = styled(Brush)`
   color: ${props => props.color.rgb.r + props.color.rgb.g + props.color.rgb.b > 525 ? '#000': '#fff'}
@@ -63,7 +67,7 @@ const ColorPicker = ({ colors, rows, columns, onChange }) => {
           </tr>)}
         </tbody>
       </table>
-      {selectedIndex !== -1 && <SketchPicker color={colors[selectedIndex]} onChange={handleColorChange(selectedIndex, onChange)} />}
+      {selectedIndex !== -1 && <StyledSketchPicker color={colors[selectedIndex]} onChange={handleColorChange(selectedIndex, onChange)} />}
     </PickerWrapper>
   )
 }
