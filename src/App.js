@@ -5,7 +5,7 @@ import Uploadinator from './components/Uploadinator'
 import Controlinator from './components/Controlinator'
 import { isMobile } from 'react-device-detect'
 import { PartyPartyParty } from './util/PredefinedColorPalettes'
-import { RGBArrayPlease, ColorObjPlease } from './util/ColorPaletteUtil'
+import { ColorObjPlease } from './util/ColorPaletteUtil'
 
 const StyledAppWrapper = styled.div`
   display: flex;
@@ -21,16 +21,19 @@ const StyledColumnWrapper = styled.div`
 
 const App = () => {
   const [theParty, setTheParty] = useState(null)
-  const [colors, setColors] = useState([...ColorObjPlease(PartyPartyParty)])
+  const [config, setConfig] = useState({
+    speed: 100,
+    colors: [...ColorObjPlease(PartyPartyParty)]
+  })
 
   const jamImageOnPage = image => { setTheParty(image) }
 
   return (
     <StyledAppWrapper>
       <StyledColumnWrapper>
-        <Uploadinator jamImageOnPage={jamImageOnPage}/>
-        <Partyifier maybePartyFile={theParty} colors={RGBArrayPlease(colors)}/>
-        {true && <Controlinator colors={colors} setColors={setColors} />}
+        <Uploadinator jamImageOnPage={jamImageOnPage} />
+        <Partyifier maybePartyFile={theParty} config={config} />
+        {true && <Controlinator config={config} setConfig={setConfig} />}
       </StyledColumnWrapper>
     </StyledAppWrapper>
   )

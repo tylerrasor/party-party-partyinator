@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import { isMobile } from "react-device-detect"
 import { ColorObjPlease } from '../util/ColorPaletteUtil'
 import { NoParty, PartyPartyParty } from '../util/PredefinedColorPalettes'
+import Collapsible from 'react-collapsible'
+import { SlidersH } from '@styled-icons/fa-solid/SlidersH'
 
 const StyledRowWrapper = styled.div`
   width: ${isMobile ? '100%' : '50%'};
@@ -19,17 +21,20 @@ const PredefinedPalettes = {
   noPartyPalette: ColorObjPlease(NoParty)
 }
 
-const Controlinator = ({ colors, setColors }) => {
+const Controlinator = ({ config, setConfig }) => {
   return (
-    <>
+    <Collapsible trigger={<SlidersH size={24} color={'#6a6a6a'} />} open={true}>
       <StyledRowWrapper>
-        <ColorPalette colors={PredefinedPalettes.partyPalette} onClick={() => setColors([...PredefinedPalettes.partyPalette])} style={{'marginRight': '10px'}}/>
-        <ColorPalette colors={PredefinedPalettes.noPartyPalette} onClick={() => setColors([...PredefinedPalettes.noPartyPalette])} />
+
       </StyledRowWrapper>
       <StyledRowWrapper>
-        <ColorPicker rows={1} columns={10} colors={colors} onChange={setColors}/>
+        <ColorPalette colors={PredefinedPalettes.partyPalette} onClick={() => setConfig({ ...config, colors: [...PredefinedPalettes.partyPalette] })} style={{'marginRight': '10px'}}/>
+        <ColorPalette colors={PredefinedPalettes.noPartyPalette} onClick={() => setConfig({ ...config, colors: [...PredefinedPalettes.noPartyPalette] })} />
       </StyledRowWrapper>
-    </>
+      <StyledRowWrapper>
+        <ColorPicker rows={1} columns={10} colors={config.colors} onChange={colors => setConfig({ ...config, colors: colors })}/>
+      </StyledRowWrapper>
+    </Collapsible>
   )
 }
 

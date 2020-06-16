@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { fileToImgTag, theMagic } from '../util/HackyFileShit'
 import { isMobile } from 'react-device-detect'
+import { RGBArrayPlease } from '../util/ColorPaletteUtil'
 
 const StyledPartyJammingSpace = styled.div`
   height: ${isMobile ? '36vh' : '100px'};
@@ -50,10 +51,10 @@ const StyledDownloadButton = styled.button`
   width: 100px;
 `
 
-const doTheThing = async (image, setPartyFile, setGettingReadyToParty, colors) => {
+const doTheThing = async (image, setPartyFile, setGettingReadyToParty, config) => {
   if (image !== null) {
     setGettingReadyToParty(true)
-    const partyMagic = await theMagic(image, colors)
+    const partyMagic = await theMagic(image, RGBArrayPlease(config.colors), config.speed)
     return new Promise(resolve => setTimeout(() => { setPartyFile(partyMagic); resolve() }, 3000))
   }
 }
@@ -69,7 +70,7 @@ const download = file => {
   gtag('event', 'file_stuff', { 'event_category': 'file_download', 'event_label': file.name })
 }
 
-const Partyifier = ({ maybePartyFile, colors }) => {
+const Partyifier = ({ maybePartyFile, config }) => {
   const [fileToParty, setFileToParty] = useState(null)
   const [partyFile, setPartyFile] = useState(null)
   const [gettingReadyToParty, setGettingReadyToParty] = useState(false)
@@ -85,7 +86,7 @@ const Partyifier = ({ maybePartyFile, colors }) => {
     // for some reason on first render we loop through this code once before the setState call works?? help me @tim.huddle
     if (fileToParty !== null) {
       partyToDisplay = fileToImgTag(fileToParty, isMobile ? 300 : 100)
-      doItButton = <StyledDoItButton onClick={() => doTheThing(fileToParty, setPartyFile, setGettingReadyToParty, colors).then(_ => setGettingReadyToParty(false))} disabled={gettingReadyToParty}>{gettingReadyToParty ? 'just chillll' : 'do it'}</StyledDoItButton>
+      doItButton = <StyledDoItButton onClick={() => doTheThing(fileToParty, setPartyFile, setGettingReadyToParty, config).then(_ => setGettingReadyToParty(false))} disabled={gettingReadyToParty}>{gettingReadyToParty ? 'just chillll' : 'do it'}</StyledDoItButton>
     }
   }
 
@@ -95,6 +96,7 @@ const Partyifier = ({ maybePartyFile, colors }) => {
     downloadButton = <StyledDownloadButton onClick={() => download(partyFile)}>download</StyledDownloadButton>
   }
 
+  console.log(config)
   return (
     <>
       {partyToDisplay &&
@@ -102,7 +104,7 @@ const Partyifier = ({ maybePartyFile, colors }) => {
           <StyledPartyJammingSpace isPartying={gettingReadyToParty}>
             {partyToDisplay}
           </StyledPartyJammingSpace>
-          <StyledPartyOverlay isPartying={gettingReadyToParty} colours={colors} />
+          <StyledPartyOverlay isPartying={gettingReadyToParty} colours={RGBArrayPlease(config.colors)} />
           {doItButton}
           {downloadButton}
         </>
