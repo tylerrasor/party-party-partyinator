@@ -32,7 +32,7 @@ const StyledPartyOverlay = styled.div`
   
   filter: brightness(85%);
   opacity: ${props => props.isPartying ? '1' : '0'};
-  animation: party 0.8s infinite;
+  animation: party ${props => 0.75 * props.speed/100}s infinite;
   transition: opacity 2s ease-out;
   height: ${isMobile ? '36vh' : '100px'};
   width: ${isMobile ? '90vw' : '100px'};
@@ -104,7 +104,7 @@ const Partyifier = ({ maybePartyFile, config }) => {
           <StyledPartyJammingSpace isPartying={gettingReadyToParty}>
             {partyToDisplay}
           </StyledPartyJammingSpace>
-          <StyledPartyOverlay isPartying={gettingReadyToParty} colours={RGBArrayPlease(config.colors)} />
+          <StyledPartyOverlay isPartying={gettingReadyToParty} colours={RGBArrayPlease(config.colors)} speed={config.speed} />
           {doItButton}
           {downloadButton}
         </>
