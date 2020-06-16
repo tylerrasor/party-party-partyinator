@@ -96,7 +96,6 @@ const Partyifier = ({ maybePartyFile, config }) => {
     downloadButton = <StyledDownloadButton onClick={() => download(partyFile)}>download</StyledDownloadButton>
   }
 
-  console.log(config)
   return (
     <>
       {partyToDisplay &&

@@ -57,11 +57,11 @@ const Controlinator = ({ config, setConfig }) => {
         <StyledSlider min={1} defaultValue={[50]} renderTrack={Track} renderThumb={Thumb} onAfterChange={val => setConfig({ ...config, speed: 100 * 50/val })} />
       </StyledRowWrapper>
       <StyledRowWrapper>
-        <ColorPalette colors={PredefinedPalettes.partyPalette} onClick={() => setConfig({ ...config, colors: [...PredefinedPalettes.partyPalette] })} style={{'marginRight': '10px'}}/>
+        <ColorPalette colors={PredefinedPalettes.partyPalette} onClick={() => setConfig({ ...config, colors: [...PredefinedPalettes.partyPalette] })} style={{'marginRight': '10px'}} />
         <ColorPalette colors={PredefinedPalettes.noPartyPalette} onClick={() => setConfig({ ...config, colors: [...PredefinedPalettes.noPartyPalette] })} />
       </StyledRowWrapper>
       <StyledRowWrapper>
-        <ColorPicker rows={1} columns={10} colors={config.colors} onChange={colors => setConfig({ ...config, colors: colors })}/>
+        <ColorPicker rows={1} columns={10} colors={config.colors} onChange={colors => setConfig({ ...config, colors: colors })} />
       </StyledRowWrapper>
     </Collapsible>
   )

@@ -47,7 +47,7 @@ const SetupColorSwatches = (colors, rows, columns, selectedIdx, onSelect) => {
 }
 
 const handleColorChange = (idx, onChange) => (color) => {
-  onChange(list => { list[idx] = color; return [...list]})
+  onChange(config => { config.colors[idx] = color; return { ...config, colors: [...config.colors] }})
 }
 
 const ColorPicker = ({ colors, rows, columns, onChange }) => {
