@@ -61,7 +61,7 @@ const Controlinator = ({ config, setConfig }) => {
         <ColorPalette colors={PredefinedPalettes.noPartyPalette} onClick={() => setConfig({ ...config, colors: [...PredefinedPalettes.noPartyPalette] })} />
       </StyledRowWrapper>
       <StyledRowWrapper>
-        <ColorPicker rows={1} columns={10} colors={config.colors} onChange={colors => setConfig({ ...config, colors: colors })} />
+        <ColorPicker rows={1} columns={10} colors={config.colors} onChange={setConfig} />
       </StyledRowWrapper>
     </Collapsible>
   )
