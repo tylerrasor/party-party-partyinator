@@ -2,39 +2,12 @@ import getPixels from 'get-pixels'
 import gifEncoder from 'gif-encoder'
 import { toGreyscale } from './greyscale'
 
-// The party palette. Party on, Sirocco!
-export const partyColours = [
-  [255, 141, 139],
-  [254, 214, 137],
-  [136, 255, 137],
-  [135, 255, 255],
-  [139, 181, 254],
-  [215, 140, 255],
-  [255, 140, 255],
-  [255, 104, 247],
-  [254, 108, 183],
-  [255, 105, 104]
-];
-
-export const noPartyColours = [
-  [128, 128, 128],
-  [158, 158, 158],
-  [187, 187, 187],
-  [200, 200, 200],
-  [187, 187, 187],
-  [158, 158, 158],
-  [128, 128, 128],
-  [158, 158, 158],
-  [187, 187, 187],
-  [200, 200, 200],
-];
-
 /**
  * Writes a party version of the given input image to the specified output stream.
  * @param {string} inputFile the thing to be partyified
  * @param {stream.Writable} outputStream The stream where the partified image is to be written
  */
-export async function createPartyImage(inputFile, outputStream, shouldIParty = true, speed = 100) {
+export async function createPartyImage(inputFile, outputStream, colors, speed = 100) {
 
   function processImage(err, pixels) {
     if (err) {
@@ -71,21 +44,7 @@ export async function createPartyImage(inputFile, outputStream, shouldIParty = t
       return arr[x + y * shapeWidth];
     }
 
-    function takeThePretties(frame, colour, g) {
-      frame.push(g * colour[0] / 255)
-      frame.push(g * colour[1] / 255)
-      frame.push(g * colour[2] / 255)
-      frame.push(255)
-    }
-
-    const addThePretties = (frame, colour, g) => {
-      frame.push(g * colour[0] / 255);
-      frame.push(g * colour[1] / 255);
-      frame.push(g * colour[2] / 255);
-      frame.push(255);
-    }
-
-    const addTheColours = (greyscale, frame, frameIndex, colourList, colourFunc) => {
+    const addTheColours = (greyscale, frame, frameIndex, colourList) => {
       for (let y = frameIndex * shapeHeight; y < (frameIndex + 1) * shapeHeight; y += 1) {
         for (let x = 0; x < shapeWidth; x += 1) {
           let g = getPixelValue(greyscale, x, y, frameIndex);
@@ -96,26 +55,26 @@ export async function createPartyImage(inputFile, outputStream, shouldIParty = t
             frame.push(0);
           } else {
             g = g < 32 ? 32 : g;
-            colourFunc(frame, colourList, g)
+            frame.push(g * colourList[0] / 255)
+            frame.push(g * colourList[1] / 255)
+            frame.push(g * colourList[2] / 255)
+            frame.push(255)
           }
         }
       }
     }
 
-    const whatKindaColours = shouldIParty ? addThePretties : takeThePretties
-    const colours = shouldIParty ? partyColours : noPartyColours
-
     for (var frameIndex = 0; frameIndex < howManyFrames; frameIndex += 1) {
       let frame = []
 
       if (howManyFrames > 1) {
-        const coloursList = colours[frameIndex % colours.length]
-        addTheColours(greyscale, frame, frameIndex, coloursList, whatKindaColours)
+        const coloursList = colors[frameIndex % colors.length]
+        addTheColours(greyscale, frame, frameIndex, coloursList)
         gif.addFrame(frame)
         gif.flushData()
       } else {
-        for(var colourIndex = 0; colourIndex < colours.length; colourIndex += 1) {
-          addTheColours(greyscale, frame, frameIndex, colours[colourIndex], whatKindaColours)
+        for(var colourIndex = 0; colourIndex < colors.length; colourIndex += 1) {
+          addTheColours(greyscale, frame, frameIndex, colors[colourIndex])
           gif.addFrame(frame)
           gif.flushData()
           frame = []

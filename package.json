@@ -13,7 +13,8 @@
     "react-scripts": "3.3.0",
     "stream-browserify": "^2.0.2",
     "styled-components": "^4.4.1",
-    "styled-icons": "^9.1.0"
+    "styled-icons": "^10.2.1",
+    "react-color": "2.18.1"
   },
   "scripts": {
     "start": "BROWSER=none react-scripts start",
